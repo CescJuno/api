@@ -21,6 +21,10 @@ public class CommonRes extends BaseModel {
 	}
 	
 	public static class Common extends BaseModel {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 349287649988783167L;
 		private String resultCode;
 		private String resultMsg;
 		
