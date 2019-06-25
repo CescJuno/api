@@ -23,6 +23,7 @@ public class SessionFactory /*implements FactoryBean<Object> */{
 	private static long refreshTimeout = 0L;
 	private static String storage = null;
 
+	@Resource(name="redisInfo")
 	private RedisInfo redisInfo;
 
 	//final long LIMIT = 86400000L;	//24hour in milli-seconds

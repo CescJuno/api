@@ -1,7 +1,6 @@
 package com.skt.api.common.redis;
 
 import org.json.simple.JSONObject;
-import org.springframework.stereotype.Service;
 
 public interface RedisInfo
 {

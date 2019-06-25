@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService {
 			}
 			return common;
 		}
-		
+
 		common.setResultCode(CodeConstants.RESULT_CODE.ERROR_DUPLICATION_EMAL);
 		common.setResultMsg(CodeConstants.RESULT_MSG.ERROR_DUPLICATION_EMAL);
 		

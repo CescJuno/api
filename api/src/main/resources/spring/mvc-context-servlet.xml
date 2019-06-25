@@ -41,6 +41,11 @@
 			<mvc:mapping path="/**" />
 			<bean id="loggerInterceptor" class="com.skt.api.common.logger.LoggerInterceptor"></bean>
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/oauth/token" />
+			<bean id="authInterceptor" class="com.skt.api.common.authorization.AuthInterceptor"></bean>
+		</mvc:interceptor>
 	</mvc:interceptors>
 	
 	
