@@ -2,7 +2,6 @@ package com.skt.api.user.service;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -12,17 +11,13 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindException;
-import org.springframework.validation.FieldError;
 
 import com.skt.api.common.resource.CodeConstants;
 import com.skt.api.common.util.SHA512Crypt;
 import com.skt.api.common.vo.CommonRes;
 import com.skt.api.common.vo.CommonRes.Common;
-import com.skt.api.user.controller.UserController;
 import com.skt.api.user.vo.User;
 
-import jdk.internal.jline.internal.Log;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
