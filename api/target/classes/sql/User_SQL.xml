@@ -27,6 +27,11 @@
 		where USER_ID = #{userId}
 	</select>
 	
+	<select id="selectUserByEmailPwd" parameterType="hashmap" resultType="com.skt.api.user.vo.User">
+		select USER_NO
+		from TB_USER
+		where USER_ID = #{userId} and USER_PWD = #{userPwd}
+	</select>
 	
 	<select id="updateUser" parameterType="hashmap">
 		update TB_USER SET USER_ID = #{userId}, CTN = #{ctn}, UPDATE_DATE = now()

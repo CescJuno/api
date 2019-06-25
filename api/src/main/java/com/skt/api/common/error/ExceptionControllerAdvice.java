@@ -44,7 +44,7 @@ public class ExceptionControllerAdvice {
 	 */
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<Object> handleAllException(final Exception ex, final HttpServletRequest request) throws Exception {
-		log.error("Request raised" + ex.getClass().getSimpleName());
+		log.error("Request raised " + ex.getClass().getSimpleName());
 		
 		ErrorResponse.Common common = new ErrorResponse.Common();
 		

@@ -1,8 +1,10 @@
 package com.skt.api.auth.controller;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -12,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.skt.api.common.controller.CommonController;
 import com.skt.api.common.resource.CodeConstants;
 import com.skt.api.common.util.PropertyResources;
+import com.skt.api.common.util.SHA512Crypt;
 import com.skt.api.common.util.SessionFactory;
+import com.skt.api.user.vo.User;
 
 @RestController
 public class AuthController extends CommonController {
@@ -27,10 +33,13 @@ public class AuthController extends CommonController {
 	
 	@Resource(name = "sessionFactory")
 	private SessionFactory session;
+	
+    @Autowired
+    private SqlSessionTemplate sqlSession;
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/oauth/token", produces="application/json; charset=utf-8")
-	public void getOAuthTokeln(HttpServletRequest request, HttpServletResponse response) {
+	public void getOAuthTokeln(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		log.debug("getOAuthToken");
 		
         String accept= request.getHeader("Accept");
@@ -74,14 +83,28 @@ public class AuthController extends CommonController {
 		JSONObject token = null;
     	if(grantType.toString().equals(CodeConstants.GRANT_TYPE.PASSWORD.getValue())) {
     		String username= ((String[]) paramMap.get("username"))[0];
-        	if(username == null) {
+    		String password= ((String[]) paramMap.get("password"))[0];
+        	if(username == null || password == null) {
             	writeGrantError(CodeConstants.AUTH_CODE.INVAID_GRANT, HttpStatus.BAD_REQUEST, response);
             	return;
             }
-        	
+
+
+    		Map<String, Object> paramMap1 = new HashMap<String, Object>();
+    		paramMap1.put("userId", username);
+    		paramMap1.put("userPwd", SHA512Crypt.getEncrypt(password));
+    		
+    		User userInfo = sqlSession.selectOne("user.selectUserByEmailPwd", paramMap1);
+    		if(userInfo == null) {
+    			//writeGrantError(CodeConstants.AUTH_CODE.INVAID_REQUEST, HttpStatus.BAD_REQUEST, response);
+    			writeGrantError(CodeConstants.AUTH_CODE.INVAID_GRANT, HttpStatus.BAD_REQUEST, response);
+            	return;
+    		}
+    		
         	if((token = writeGrantResult(username, null, response))==null)
         		return;
         	
+
             ///SessionFactory session = SessionFactory.getInstance();
             session.setSession(token.get("access_token").toString(), token, false);
             session.setSession(token.get("refresh_token").toString(), token, true);
