@@ -29,6 +29,10 @@ public class ErrorResponse extends BaseModel {
 	
 	public static class Common extends BaseModel {
 		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -862560387250542985L;
 		private String resultCode;
 		private String resultMsg;
 		public String getResultCode() {

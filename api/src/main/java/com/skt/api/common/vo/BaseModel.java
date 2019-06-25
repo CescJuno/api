@@ -19,6 +19,7 @@ public class BaseModel implements Serializable {
 
 	@Override
 	public String toString() {
+		@SuppressWarnings("rawtypes")
 		Class cls = this.getClass();
 		Method[] arrMethod = cls.getMethods();
 		StringBuilder sb = new StringBuilder(this.getClass().toString());
