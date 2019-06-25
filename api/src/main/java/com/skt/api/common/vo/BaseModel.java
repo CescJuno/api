@@ -30,20 +30,12 @@ public class BaseModel implements Serializable {
 				if(m.getName().startsWith("get") && !m.getName().equals("getClass")) {
 					sb.append(m.getName());
 					sb.append(": ");
-					sb.append(m.invoke(this, null));
+					//sb.append(m.invoke(this, null));
 					sb.append(", ");
 					
 				}
 			}
 		}catch(IllegalArgumentException e) {
-			log.error("exception : ", e);
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			log.error("exception : ", e);
-			//e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
 			log.error("exception : ", e);
 		}
 		
