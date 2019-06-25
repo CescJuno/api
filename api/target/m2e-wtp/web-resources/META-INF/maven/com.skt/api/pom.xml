@@ -258,7 +258,8 @@
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
-                    <compilerArgument>-Xlint:all</compilerArgument>
+                    <!-- compilerArgument>-Xlint:all</compilerArgument -->
+                    <compilerArgument>-XDignore.symbol.file</compilerArgument>
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
                     <path>/${project.build.finalName}</path>
