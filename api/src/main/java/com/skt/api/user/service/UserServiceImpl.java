@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
 		
 		User userInfo = sqlSession.selectOne("user.selectUserByEmail", paramMap);
 		CommonRes.Common common = new CommonRes.Common();
-		if(userInfo != null) {
+		if(userInfo.getUserNo() == null) {
 			int statement = sqlSession.insert("user.insertUser", paramMap);
 			log.debug(statement);
 			if(statement == 1) {
