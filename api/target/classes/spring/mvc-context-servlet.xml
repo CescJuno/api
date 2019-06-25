@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+  	   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<mvc:annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver"
+		p:order="1" p:viewClass="org.springframework.web.servlet.view.JstlView"
+		p:prefix="/WEB-INF/jsp/" p:suffix=".jsp">
+	</bean>
+	
+	<context:component-scan base-package="com.skt.api" >
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+	</context:component-scan>
+	
+	
+	<!-- interceptors -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean id="loggerInterceptor" class="com.skt.api.common.logger.LoggerInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	
+	
+	<!-- Properties -->
+	<bean id="propertyResources" class="com.skt.api.common.util.PropertyResources"/>
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	   <property name="locations">
+	       <list>
+	       		<value>classpath:config/dev.properties</value>
+	       </list>
+	   </property>
+	</bean>
+	
+	
+	<!-- Validator -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>classpath:/message/message-system</value>
+			</list>
+		</property>
+		<property name="cacheSeconds" value="60" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+	
+	<bean id="messageSourceAccessor" class="org.springframework.context.support.MessageSourceAccessor">
+		<constructor-arg><ref bean="messageSource" /></constructor-arg>
+	</bean>
+	
+	<bean id="beanValidator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="validationMessageSource" ref="messageSource" />
+	</bean>
+	
+	<mvc:annotation-driven validator="beanValidator" />
+	
+	<!-- session -->
+	<bean id="sessionFactory" class="com.skt.api.common.util.SessionFactory" depends-on="propertyResources">
+		<!--
+		<property name="accessTimeout" value="${token.access.timeout}" />
+		<property name="refreshTimeout" value="${token.refresh.timeout}" />
+		<property name="storage" value="${session.storage}" />
+		-->
+	</bean>
+	
+	<!-- Log -->
+	<bean id="log4jInitializer" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" depends-on="propertyResources">
+	    <property name="targetClass" value="org.springframework.util.Log4jConfigurer" />
+	    <property name="targetMethod" value="initLogging" />
+	    <property name="arguments">
+	        <list>
+	            <value>${log4j.path}</value>
+	        </list>
+	    </property>
+	</bean>
+	
+	<!-- Annotation -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="0" />
+		
+	<!-- JSON -->
+	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+		
+	<!-- 트랜젝션 매니저 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<!-- @Transactional 애노테이션을 sacn하기 위한 설정 -->
+	<tx:annotation-driven/>
+</beans>

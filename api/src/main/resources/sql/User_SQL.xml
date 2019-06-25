@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+	<select id="selectUserList" parameterType="hashmap" resultType="com.skt.api.user.vo.User">
+		select USER_NO
+			, USER_ID
+			, CTN
+			, CREATE_DATE
+			, UPDATE_DATE
+		from TB_USER
+	</select>
+	
+	<select id="selectUser" parameterType="hashmap" resultType="com.skt.api.user.vo.User">
+		select USER_NO
+			, USER_ID
+			, CTN
+			, CREATE_DATE
+			, UPDATE_DATE
+		from TB_USER
+		where USER_NO = #{userNo}
+	</select>
+	
+	<select id="selectUserByEmail" parameterType="hashmap" resultType="com.skt.api.user.vo.User">
+		select USER_NO
+		from TB_USER
+		where USER_ID = #{userId}
+	</select>
+	
+	
+	<select id="updateUser" parameterType="hashmap">
+		update TB_USER SET USER_ID = #{userId}, CTN = #{ctn}, UPDATE_DATE = now()
+		where USER_NO = #{userNo}
+	</select>
+		
+	
+	<select id="insertUser" parameterType="hashmap" >
+		insert into TB_USER (USER_ID, USER_PWD, CTN, PWD_UPDATE_DATE, CREATE_DATE, UPDATE_DATE) VALUES(#{userId}, #{userPwd}, #{ctn}, CURDATE(), now(), now())
+	</select>
+	
+	
+	<select id="deleteUser" parameterType="hashmap" >
+		DELETE FROM TB_USER WHERE USER_NO = #{userNo}
+	</select>
+</mapper>
