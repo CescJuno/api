@@ -76,6 +76,7 @@ public class SessionFactory /*implements FactoryBean<Object> */{
 		return session.get(skey);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void setSession(String skey, Object val, boolean isRefresh) {
 		if(storage.equals("redis")) {
 			redisInfo.setRedis(skey, (JSONObject) val, isRefresh? refreshTimeout : accessTimeout);
@@ -98,6 +99,7 @@ public class SessionFactory /*implements FactoryBean<Object> */{
 		List<String> cleans = new ArrayList<String>();
 		try {
 			for (String skey : (String[]) session.keySet().toArray()) {
+				@SuppressWarnings("unchecked")
 				Map<String,Object> token = (Map<String,Object>) session.get(skey);
 				//refreshExpiresTime = (long)token.get("refresh_expires_time");
 				if(currentTime - refreshExpiresTime > LIMIT)

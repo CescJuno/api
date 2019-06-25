@@ -11,6 +11,10 @@ import org.apache.log4j.Logger;
 import com.skt.api.common.error.ExceptionControllerAdvice;
 
 public class BaseModel implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3873809383866904399L;
 	protected static Logger log = Logger.getLogger(BaseModel.class.getName()); 
 
 	@Override

@@ -2,6 +2,10 @@ package com.skt.api.common.vo;
 
 public class ErrorResponse extends BaseModel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8070913749533101832L;
 	private Common common;
 
 	public ErrorResponse(Common common2) {

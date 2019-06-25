@@ -3,6 +3,10 @@ package com.skt.api.common.vo;
 
 public class CommonRes extends BaseModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -920730632004792933L;
 	private Common common;
 	public Common getCommon() {
 		return common;
