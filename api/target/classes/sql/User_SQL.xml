@@ -33,18 +33,18 @@
 		where USER_ID = #{userId} and USER_PWD = #{userPwd}
 	</select>
 	
-	<select id="updateUser" parameterType="hashmap">
+	<update id="updateUser" parameterType="hashmap">
 		update TB_USER SET USER_ID = #{userId}, CTN = #{ctn}, UPDATE_DATE = now()
 		where USER_NO = #{userNo}
-	</select>
+	</update>
 		
 	
-	<select id="insertUser" parameterType="hashmap" >
+	<insert id="insertUser" parameterType="hashmap" >
 		insert into TB_USER (USER_ID, USER_PWD, CTN, PWD_UPDATE_DATE, CREATE_DATE, UPDATE_DATE) VALUES(#{userId}, #{userPwd}, #{ctn}, CURDATE(), now(), now())
-	</select>
+	</insert>
 	
 	
-	<select id="deleteUser" parameterType="hashmap" >
+	<delete id="deleteUser" parameterType="hashmap" >
 		DELETE FROM TB_USER WHERE USER_NO = #{userNo}
-	</select>
+	</delete>
 </mapper>

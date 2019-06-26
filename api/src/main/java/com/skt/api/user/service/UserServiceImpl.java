@@ -23,6 +23,7 @@ import com.skt.api.user.vo.User;
 public class UserServiceImpl implements UserService {
 
 	protected static Logger log = Logger.getLogger(UserServiceImpl.class.getName()); 
+	private final String namespace = "user";
 	
     @Autowired
     private SqlSessionTemplate sqlSession;
@@ -33,7 +34,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> getAllUsers() throws Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		List<User> userList = sqlSession.selectList("user.selectUserList", paramMap);
+		List<User> userList = sqlSession.selectList(namespace+".selectUserList", paramMap);
 		
 		return userList;
 	}
@@ -42,7 +43,7 @@ public class UserServiceImpl implements UserService {
 	public User getUser(int userNo) throws Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("userNo", userNo);
-		User userInfo = sqlSession.selectOne("user.selectUser", paramMap);
+		User userInfo = sqlSession.selectOne(namespace+".selectUser", paramMap);
 		
 		return userInfo;
 	}
@@ -54,7 +55,7 @@ public class UserServiceImpl implements UserService {
 		paramMap.put("userNo", userNo);
 		paramMap.put("userId", user.getUserId());
 		paramMap.put("ctn", user.getCtn());
-		int statement = sqlSession.update("user.updateUser", paramMap);
+		int statement = sqlSession.update(namespace+".updateUser", paramMap);
 		log.debug(statement);
 		CommonRes.Common common = new CommonRes.Common();
 		if(statement == 1) {
@@ -75,10 +76,10 @@ public class UserServiceImpl implements UserService {
 		paramMap.put("userPwd", SHA512Crypt.getEncrypt(user.getUserPwd()));
 		paramMap.put("ctn", user.getCtn());
 		
-		User userInfo = sqlSession.selectOne("user.selectUserByEmail", paramMap);
+		User userInfo = sqlSession.selectOne(namespace+".selectUserByEmail", paramMap);
 		CommonRes.Common common = new CommonRes.Common();
 		if(userInfo == null) {
-			int statement = sqlSession.insert("user.insertUser", paramMap);
+			int statement = sqlSession.insert(namespace+".insertUser", paramMap);
 			log.debug(statement);
 			if(statement == 1) {
 				common.setResultCode(CodeConstants.RESULT_CODE.SUCCESS);
@@ -101,7 +102,7 @@ public class UserServiceImpl implements UserService {
 	public Common deleteUser(int userNo) throws Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("userNo", userNo);
-		int statement = sqlSession.insert("user.deleteUser", paramMap);
+		int statement = sqlSession.delete(namespace+".deleteUser", paramMap);
 		log.debug(statement);
 		CommonRes.Common common = new CommonRes.Common();
 		if(statement == 1) {
