@@ -8,8 +8,8 @@
 			, TOPIC
 			, CONTENT
 		from TB_BIBLE_WOORI
-		where BID LIKE CONCAT('%', #{bid}, '%')
-		ORDER BY BID DESC
+		where BID LIKE CONCAT('', #{bid}, '%')
+		ORDER BY BID ASC
 	</select>
 	
 	<select id="selectBibleRev" parameterType="hashmap" resultType="com.skt.api.bible.vo.Bible">
@@ -17,8 +17,8 @@
 			, TOPIC
 			, CONTENT
 		from TB_BIBLE_REV
-		where BID LIKE CONCAT('%', #{bid}, '%')
-		ORDER BY BID DESC
+		where BID LIKE CONCAT('', #{bid}, '%')
+		ORDER BY BID ASC
 	</select>
 	
 	<select id="selectBibleNiv" parameterType="hashmap" resultType="com.skt.api.bible.vo.Bible">
@@ -26,7 +26,7 @@
 			, TOPIC
 			, CONTENT
 		from TB_BIBLE_NIV
-		where BID LIKE CONCAT('%', #{bid}, '%')
-		ORDER BY BID DESC
+		where BID LIKE CONCAT('', #{bid}, '%')
+		ORDER BY BID ASC
 	</select>
 </mapper>
