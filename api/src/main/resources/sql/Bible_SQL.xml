@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bible">
+	
+	<select id="selectBibleWoori" parameterType="hashmap" resultType="com.skt.api.bible.vo.Bible">
+		select BID
+			, TOPIC
+			, CONTENT
+		from TB_BIBLE_WOORI
+		where BID LIKE CONCAT('%', #{bid}, '%')
+	</select>
+	
+	<select id="selectBibleRev" parameterType="hashmap" resultType="com.skt.api.bible.vo.Bible">
+		select BID
+			, TOPIC
+			, CONTENT
+		from TB_BIBLE_REV
+		where BID LIKE CONCAT('%', #{bid}, '%')
+	</select>
+	
+	<select id="selectBibleNiv" parameterType="hashmap" resultType="com.skt.api.bible.vo.Bible">
+		select BID
+			, TOPIC
+			, CONTENT
+		from TB_BIBLE_NIV
+		where BID LIKE CONCAT('%', #{bid}, '%')
+	</select>
+</mapper>
