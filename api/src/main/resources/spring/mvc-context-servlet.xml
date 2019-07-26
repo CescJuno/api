@@ -56,6 +56,7 @@
 			<mvc:mapping path="/**" />
             <mvc:exclude-mapping path="/oauth/token" />
             <mvc:exclude-mapping path="/bible/**" />
+            <mvc:exclude-mapping path="/external/**" />
 			<bean id="authInterceptor" class="com.skt.api.common.authorization.AuthInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>

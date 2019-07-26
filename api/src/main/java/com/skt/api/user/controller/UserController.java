@@ -75,8 +75,11 @@ public class UserController {
 
 	@Transactional(rollbackFor=Exception.class)
 	@RequestMapping(value="/users/{id}", method=RequestMethod.DELETE, produces="application/json; charset=utf-8")
-	public @ResponseBody Common deleteUserInfo(@PathVariable @Min(1) int id) throws Exception{
+	public @ResponseBody Common deleteUserInfo(@PathVariable @Min(1) int id, BindingResult bindingResult) throws Exception{
 		log.debug("deleteUserInfo");
+		if(bindingResult.hasErrors()) {
+			throw new BindException(bindingResult);
+		}
 		return userService.deleteUser(id);
 	}
 
