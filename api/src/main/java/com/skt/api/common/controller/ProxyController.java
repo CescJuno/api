@@ -87,14 +87,14 @@ public class ProxyController
 		String method = param.get("method")==null||param.get("method").toString().equals("")? "POST":param.get("method").toString();
 		String encoding = param.get("encoding")==null||param.get("encoding").equals("")? "UTF-8":param.get("encoding").toString();
 		String contentType = param.get("contentType")==null||param.get("contentType").equals("")? "application/json;charset=UTF-8":param.get("contentType").toString();
-		boolean hasInput = (boolean)param.get("hasInput")? true:false;
+		//boolean hasInput = (boolean)param.get("hasInput")? true:false;
 		Map<String, Object> header = null;
 		try {
 			header = param.get("header")==null? null: StringUtil.parse(param.get("header").toString());
 		} catch (Exception e1) {}
 		String inputText = param.get("inputText")==null||param.get("inputText").equals("")? "": param.get("inputText").toString();
-		boolean hasOutput = (boolean)param.get("hasOutput")? true:false;
-		boolean debug = (boolean)param.get("debug")? true:false;
+		//boolean hasOutput = (boolean)param.get("hasOutput")? true:false;
+		//boolean debug = (boolean)param.get("debug")? true:false;
 		String strUrl = "";
 		String url = (String)param.get("url");
 		if(url != null && !url.equals(""))
@@ -105,7 +105,7 @@ public class ProxyController
 		OutputStream sos = new ByteArrayOutputStream();
 		
 		try {
-			view(method, encoding, contentType, hasInput, hasOutput, debug, strUrl, header, inputText, sis, sos);
+			//view(method, encoding, contentType, hasInput, hasOutput, debug, strUrl, header, inputText, sis, sos);
 			String bstr = new String(((ByteArrayOutputStream) sos).toByteArray(), encoding);
 			bstr = sos.toString();
 			sos.close();

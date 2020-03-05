@@ -75,7 +75,6 @@
 			<artifactId>jaxb-api</artifactId>
 			<version>${jaxb-api.version}</version>
 			<scope>runtime</scope>
-			
 		</dependency>
 		<!-- Redis Lib -->
 		<dependency>
