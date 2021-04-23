@@ -34,9 +34,9 @@
 	</bean>	
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver"
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		p:order="1" p:viewClass="org.springframework.web.servlet.view.JstlView"
-		p:prefix="/WEB-INF/jsp/" p:suffix=".jsp">
+		p:prefix="/WEB-INF/views/" p:suffix=".jsp">
 	</bean>
 	
 	<context:component-scan base-package="com.skt.api" >
@@ -52,13 +52,13 @@
 			<mvc:mapping path="/**" />
 			<bean id="loggerInterceptor" class="com.skt.api.common.logger.LoggerInterceptor"></bean>
 		</mvc:interceptor>
-		<mvc:interceptor>
+		<!--mvc:interceptor>
 			<mvc:mapping path="/**" />
             <mvc:exclude-mapping path="/oauth/token" />
             <mvc:exclude-mapping path="/bible/**" />
             <mvc:exclude-mapping path="/external/**" />
 			<bean id="authInterceptor" class="com.skt.api.common.authorization.AuthInterceptor"></bean>
-		</mvc:interceptor>
+		</mvc:interceptor-->
 	</mvc:interceptors>
 	
 	

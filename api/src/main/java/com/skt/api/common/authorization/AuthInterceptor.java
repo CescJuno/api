@@ -68,8 +68,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         
         //header에 authorization도 없고 access_token으로 넘어온 값도 없는 경우
         if(authorization == null) {
-        	
-        	new CommonController().writeGrantError(CodeConstants.AUTH_CODE.INVAID_REQUEST, HttpStatus.BAD_REQUEST, response);
+        	new CommonController().writeGrantError(CodeConstants.AUTH_CODE.INVAID_GRANT, HttpStatus.BAD_REQUEST, response);
         	return false;
         }
         

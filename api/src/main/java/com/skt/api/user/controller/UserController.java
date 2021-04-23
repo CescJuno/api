@@ -1,5 +1,5 @@
 package com.skt.api.user.controller;
-
+//http://localhost:8080/test/rev
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;

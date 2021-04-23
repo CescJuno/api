@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bible">
+	
+	<select id="selectBibleWoori" parameterType="hashmap" resultType="com.skt.api.bible.vo.Bible">
+		select BID
+			, TOPIC
+			, CONTENT
+		from TB_BIBLE_WOORI
+		where BID LIKE CONCAT('', #{bid}, '%')
+		ORDER BY BID ASC
+	</select>
+	
+	<select id="selectBibleBookWoori" parameterType="hashmap" resultType="com.skt.api.bible.vo.BibleBook">
+		select BBID
+			, BIBLE_TYPE
+			, BIBLE_TITLE
+			, BIBLE_SUB_TITLE
+		from TB_BIBLE_BOOK
+		WHERE BIBLE_CODE = '0'
+		ORDER BY BBID ASC
+	</select>
+	
+	
+	<select id="selectBibleBookWooriByBid" parameterType="hashmap" resultType="com.skt.api.bible.vo.BibleBook">
+		select BBID
+			, BIBLE_TYPE
+			, BIBLE_TITLE
+			, BIBLE_SUB_TITLE
+		from TB_BIBLE_BOOK
+		WHERE BIBLE_CODE = '0' 
+		AND BBID LIKE CONCAT('', #{bid}, '%')
+		ORDER BY BBID ASC
+	</select>
+	
+	<select id="selectBibleBookRev" parameterType="hashmap" resultType="com.skt.api.bible.vo.BibleBook">
+		select BBID
+			, BIBLE_TYPE
+			, BIBLE_TITLE
+			, BIBLE_SUB_TITLE
+		from TB_BIBLE_BOOK
+		WHERE BIBLE_CODE = '1'
+		ORDER BY BBID ASC
+	</select>
+	
+	<select id="selectBibleBookRevByBid" parameterType="hashmap" resultType="com.skt.api.bible.vo.BibleBook">
+		select BBID
+			, BIBLE_TYPE
+			, BIBLE_TITLE
+			, BIBLE_SUB_TITLE
+		from TB_BIBLE_BOOK
+		WHERE BIBLE_CODE = '1' 
+		AND BBID LIKE CONCAT('', #{bid}, '%')
+		ORDER BY BBID ASC
+	</select>
+	
+	<select id="selectBibleBookNiv" parameterType="hashmap" resultType="com.skt.api.bible.vo.BibleBook">
+		select BBID
+			, BIBLE_TYPE
+			, BIBLE_TITLE
+			, BIBLE_SUB_TITLE
+		from TB_BIBLE_BOOK
+		WHERE BIBLE_CODE = '2'
+		ORDER BY BBID ASC
+	</select>
+		
+	<select id="selectBibleBookNivByBid" parameterType="hashmap" resultType="com.skt.api.bible.vo.BibleBook">
+		select BBID
+			, BIBLE_TYPE
+			, BIBLE_TITLE
+			, BIBLE_SUB_TITLE
+		from TB_BIBLE_BOOK
+		WHERE BIBLE_CODE = '2' 
+		AND BBID LIKE CONCAT('', #{bid}, '%')
+		ORDER BY BBID ASC
+	</select>
+	
+	<select id="selectBibleRev" parameterType="hashmap" resultType="com.skt.api.bible.vo.Bible">
+		select BID
+			, TOPIC
+			, CONTENT
+		from TB_BIBLE_REV
+		where BID LIKE CONCAT('', #{bid}, '%')
+		ORDER BY BID ASC
+	</select>
+	
+	<select id="selectBibleNiv" parameterType="hashmap" resultType="com.skt.api.bible.vo.Bible">
+		select BID
+			, TOPIC
+			, CONTENT
+		from TB_BIBLE_NIV
+		where BID LIKE CONCAT('', #{bid}, '%')
+		ORDER BY BID ASC
+	</select>
+</mapper>

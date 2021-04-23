@@ -203,7 +203,7 @@
 		<dependency>
 		    <groupId>mysql</groupId>
 		    <artifactId>mysql-connector-java</artifactId>
-		    <version>5.1.47</version>
+		    <version>8.0.23</version>
 		    <scope>compile</scope>
 		</dependency>    
 		
@@ -261,7 +261,6 @@
                     <compilerArgument>-XDignore.symbol.file</compilerArgument>
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
-                    <path>/${project.build.finalName}</path>
                 </configuration>
             </plugin>
             <plugin>

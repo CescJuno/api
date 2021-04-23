@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="test">
+	<select id="selectTest" parameterType="hashmap" resultType="com.skt.api.test.vo.Test">
+		select NO
+			, TITLE
+		from TEST
+        where NO = #{no}
+	</select>
+	<select id="selectTestList" parameterType="hashmap" resultType="com.skt.api.test.vo.Test">
+		select no, TITLE
+		from TEST
+	</select>
+	<delete id="deleteTest" parameterType="hashmap">
+		delete
+        from TEST
+        where no = #{no}
+	</delete>
+	<update id="updateTest" parameterType="hashmap">
+		update TEST
+		set title = #{title}
+		where no = #{no}
+	</update>
+	<insert id="insertTest" parameterType="hashmap" >
+		insert into TEST (NO, TITLE) VALUES(#{no}, #{title})
+	</insert>
+</mapper>

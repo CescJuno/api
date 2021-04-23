@@ -41,7 +41,7 @@ public class AuthController extends CommonController {
 	@RequestMapping(value="/oauth/token", produces="application/json; charset=utf-8")
 	public void getOAuthTokeln(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		log.debug("getOAuthToken");
-		
+
         String accept= request.getHeader("Accept");
         log.debug("accept="+accept);
         
@@ -52,7 +52,6 @@ public class AuthController extends CommonController {
         	writeGrantError(CodeConstants.AUTH_CODE.INVAID_BASIC, HttpStatus.UNAUTHORIZED, response);
         	return;
         }
-
         String[] sa = authorization.split("\\s", 2);
         if(!sa[0].trim().equals("Basic") || sa.length < 2) {
         	writeGrantError(CodeConstants.AUTH_CODE.INVAID_BASIC, HttpStatus.UNAUTHORIZED, response);
