@@ -67,9 +67,9 @@
 	}
 	$(document).ready(function(){
 		testManager.init(100, 200, 200);
-		testManager.setTest(0, {
-			no:0,
-			title:'bbb'
+		testManager.setTest(22, {
+			not:111,
+			title:'sdfsdfsddddddsdfsdf'
 		});
 		testManager.getTests(); // API 호출을 하여 결과를 조회하기 위함
 	});

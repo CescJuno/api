@@ -21,7 +21,7 @@ import java.util.List;
 public class TestController {
     protected static Logger log = Logger.getLogger(TestController.class.getName());
 
-    @Resource(name="testService")
+    @Resource(name="testService") // 서비스선언시 선언
     private TestService testService;
 
     @Resource(name="messageSource")
@@ -42,7 +42,7 @@ public class TestController {
     //복수형 - 전체를 가져옴
     @RequestMapping(value="/tests", method=RequestMethod.GET, produces="application/json; charset=utf-8")
     public @ResponseBody
-    List<Test> getAllTests() throws Exception{
+    List<Test> getAllTests(Test test) throws Exception{
         log.debug("getAllUsers");
 
         return testService.getAllTests();
